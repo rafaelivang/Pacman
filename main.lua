@@ -5,5 +5,7 @@
 -----------------------------------------------------------------------------------------
 
 -- Your code here
--- Hide status bar
 display.setStatusBar( display.HiddenStatusBar )
+
+local composer = require "composer"
+composer.gotoScene( "start" )
