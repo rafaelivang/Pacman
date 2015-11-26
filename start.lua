@@ -17,6 +17,8 @@ function scene:create(event)
 	-- -- Add objects to sceneGrp to be shown in screen.
 	loadBorders(sceneGroup)
 
+	loadMap(sceneGroup)
+
 	loadGhosts(sceneGroup)
 
 	charactersAnimation()
@@ -43,59 +45,83 @@ function charactersAnimation()
 end
 
 function ghostRedTransitionRight()
+	-- TODO might be removed
 	-- downTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y+20,onComplete=ghostRedTransitionLeft})
 	-- downTransition = transition.to(ghostRed,{time=400, y=ghostRed.y+20,onComplete=ghostRedTransitionLeft})
 	-- ghostRed
 end
 
 function ghostRedTransitionLeft()
+	-- TODO might be removed
 	-- upTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y-20, onComplete=ghostRedTransitionRight})
 	-- upTransition = transition.to(ghostRed,{time=400, y=ghostRed.y-20, onComplete=ghostRedTransitionRight})
 end
 
 function loadGhosts(sceneGroup)
-	blue_options =
+	opt =
 	{
 		-- Required params
-		width = 80,
-		height = 100,
-		numFrames = 2,
+		-- width = 36,
+		-- height = 80,
+		-- numFrames = 2,
 		-- content scaling
-		sheetContentWidth = 160,
-		sheetContentHeight = 100,
+		-- sheetContentWidth = 160,
+		-- sheetContentHeight = 100,
+
+		width = 18,
+		height = 79,
+		numFrames = 2,
+		sheetContentWidth = 80,
+		sheetContentHeight = 80,
 	}
 
-	ghostBlueSheet = graphics.newImageSheet("imgs/ghost-blue.png", blue_options)
+	ghostBlueSheet = graphics.newImageSheet("imgs/ghost-blue-both.png", opt)
+	ghostBlue = display.newSprite( ghostBlueSheet, { name="ghostBlue", start=1, count=2, time=450 } )
 	-- ghostBlueSheet = graphics.newImageSheet("imgs/gb.tps", blue_options)
-	ghostBlue = display.newSprite( ghostBlueSheet, { name="ghostBlue", start=1, count=2, time=500 } )
 	-- ghostBlue = display.newImageRect("imgs/ghost-blue-both.png", 100, 100)
 	ghostBlue.anchorX = 0.5
 	ghostBlue.anchorY = 1
-	ghostBlue.x = display.contentCenterX - 125
-	ghostBlue.y = display.contentHeight - 392
-	-- ghostBlue:play()
+	ghostBlue.x = display.contentCenterX - 142
+	ghostBlue.y = display.contentHeight - 395
+	ghostBlue:play()
 	sceneGroup:insert(ghostBlue)
 
-	ghostPurple = display.newImageRect("imgs/ghost-purple.png", 100, 100)
+	ghostPurpleSheet = graphics.newImageSheet("imgs/ghost-purple-both.png", opt)
+	ghostPurple = display.newSprite( ghostPurpleSheet, { name="ghostPurple", start=1, count=2, time=450 } )
 	ghostPurple.anchorX = 0.5
 	ghostPurple.anchorY = 1
-	ghostPurple.x = display.contentCenterX + 155
-	ghostPurple.y = display.contentHeight - 392
+	ghostPurple.x = display.contentCenterX + 142
+	ghostPurple.y = display.contentHeight - 395
+	ghostPurple:play()
 	sceneGroup:insert(ghostPurple)
 
-	ghostRed = display.newImageRect("imgs/ghost-red.png", 100, 100)
+	ghostRedSheet = graphics.newImageSheet("imgs/ghost-red-both.png", opt)
+	ghostRed = display.newSprite( ghostRedSheet, { name="ghostRed", start=1, count=2, time=450 } )
 	ghostRed.anchorX = 0.5
 	ghostRed.anchorY = 1
-	ghostRed.x = display.contentCenterX - 125
-	ghostRed.y = display.contentHeight - 53
+	ghostRed.x = display.contentCenterX - 142
+	ghostRed.y = display.contentHeight - 52
+	ghostRed:play()
 	sceneGroup:insert(ghostRed)
 
-	ghostYellow = display.newImageRect("imgs/ghost-yellow.png", 100, 100)
+	ghostYellowSheet = graphics.newImageSheet("imgs/ghost-yellow-both.png", opt)
+	ghostYellow = display.newSprite( ghostYellowSheet, { name="ghostYellow", start=1, count=2, time=450 } )
 	ghostYellow.anchorX = 0.5
 	ghostYellow.anchorY = 1
-	ghostYellow.x = display.contentCenterX + 155
-	ghostYellow.y = display.contentHeight - 53
+	ghostYellow.x = display.contentCenterX + 142
+	ghostYellow.y = display.contentHeight - 52
+	ghostYellow:play()
 	sceneGroup:insert(ghostYellow)
+end
+
+function loadMap(sceneGroup)
+	map = display.newImageRect("imgs/div-map.png", 330, 365)
+	map.anchorX = 0.5
+	map.anchorY = 1
+	map.x = display.contentCenterX + 3
+	map.y = display.contentHeight - 113
+	physics.addBody(map, "static", {density=1, bounce=0.1, friction=.2})
+	sceneGroup:insert(map)
 end
 
 function loadBorders(sceneGroup)
