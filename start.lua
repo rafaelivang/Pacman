@@ -43,22 +43,37 @@ function charactersAnimation()
 end
 
 function ghostRedTransitionRight()
-	-- downTransition = transition.to(titleGroup,{time=400, y=titleGroup.y+20,onComplete=ghostRedTransitionLeft})
+	-- downTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y+20,onComplete=ghostRedTransitionLeft})
 	-- downTransition = transition.to(ghostRed,{time=400, y=ghostRed.y+20,onComplete=ghostRedTransitionLeft})
 	-- ghostRed
 end
 
 function ghostRedTransitionLeft()
-	-- upTransition = transition.to(titleGroup,{time=400, y=titleGroup.y-20, onComplete=ghostRedTransitionRight})
+	-- upTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y-20, onComplete=ghostRedTransitionRight})
 	-- upTransition = transition.to(ghostRed,{time=400, y=ghostRed.y-20, onComplete=ghostRedTransitionRight})
 end
 
 function loadGhosts(sceneGroup)
-	ghostBlue = display.newImageRect("imgs/ghost-blue.png", 100, 100)
+	blue_options =
+	{
+		-- Required params
+		width = 80,
+		height = 100,
+		numFrames = 2,
+		-- content scaling
+		sheetContentWidth = 160,
+		sheetContentHeight = 100,
+	}
+
+	ghostBlueSheet = graphics.newImageSheet("imgs/ghost-blue.png", blue_options)
+	-- ghostBlueSheet = graphics.newImageSheet("imgs/gb.tps", blue_options)
+	ghostBlue = display.newSprite( ghostBlueSheet, { name="ghostBlue", start=1, count=2, time=500 } )
+	-- ghostBlue = display.newImageRect("imgs/ghost-blue-both.png", 100, 100)
 	ghostBlue.anchorX = 0.5
 	ghostBlue.anchorY = 1
 	ghostBlue.x = display.contentCenterX - 125
 	ghostBlue.y = display.contentHeight - 392
+	-- ghostBlue:play()
 	sceneGroup:insert(ghostBlue)
 
 	ghostPurple = display.newImageRect("imgs/ghost-purple.png", 100, 100)
