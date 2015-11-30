@@ -9,6 +9,8 @@ local composer = require("composer")
 local scene = composer.newScene()
 
 local physics = require("physics")
+-- local widget = require("widget")
+local controller = require("controller")
 physics.start()
 
 function scene:create(event)
@@ -21,7 +23,11 @@ function scene:create(event)
 
 	loadGhosts(sceneGroup)
 
-	charactersAnimation()
+	loadPacman(sceneGroup)
+	
+	startControllers(getPlayerInUse())
+	-- startControllers(getCharacter())
+	-- charactersAnimation()
 end
 
 function scene:show(event)
@@ -36,25 +42,34 @@ function scene:destroy(event)
 
 end
 
-function charactersAnimation()
-	ghostRedTransitionRight()
-	-- ghostBlueTransitionRight()
-	-- ghostPurpleTransitionRight()
-	-- ghostYellowTransitionRight()
-	-- pacmanTransitionRight()
-end
+-- function ch:getCharacter()
+-- 	ch = pacman
+-- 	return ch
+-- end
 
-function ghostRedTransitionRight()
-	-- TODO might be removed
-	-- downTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y+20,onComplete=ghostRedTransitionLeft})
-	-- downTransition = transition.to(ghostRed,{time=400, y=ghostRed.y+20,onComplete=ghostRedTransitionLeft})
-	-- ghostRed
-end
+function loadPacman(sceneGroup)
+	w = 18
+	h = 22
 
-function ghostRedTransitionLeft()
-	-- TODO might be removed
-	-- upTransition = transition.to(ghostBlue,{time=400, y=ghostBlue.y-20, onComplete=ghostRedTransitionRight})
-	-- upTransition = transition.to(ghostRed,{time=400, y=ghostRed.y-20, onComplete=ghostRedTransitionRight})
+	opt =
+	{
+		width = w,
+		height = h,
+		numFrames = 2,
+		sheetContentWidth = w*2,
+		sheetContentHeight = h,
+	}
+
+	pacmanSheet = graphics.newImageSheet("imgs/pacman-both.png", opt)
+	pacman = display.newSprite(pacmanSheet, { name="pacman", start=1, count=2, time=450 } )
+	
+	pacman.anchorX = 0.5
+	pacman.anchorY = 1
+	pacman.x = display.contentCenterX
+	pacman.y = display.contentHeight - 254
+	pacman:play()
+	sceneGroup:insert(pacman)
+
 end
 
 function loadGhosts(sceneGroup)
@@ -115,11 +130,11 @@ function loadGhosts(sceneGroup)
 end
 
 function loadMap(sceneGroup)
-	map = display.newImageRect("imgs/div-map.png", 330, 365)
+	map = display.newImageRect("imgs/div-map.png", 255, 318)
 	map.anchorX = 0.5
 	map.anchorY = 1
-	map.x = display.contentCenterX + 3
-	map.y = display.contentHeight - 113
+	map.x = display.contentCenterX
+	map.y = display.contentHeight - 134
 	physics.addBody(map, "static", {density=1, bounce=0.1, friction=.2})
 	sceneGroup:insert(map)
 end
@@ -165,10 +180,23 @@ function loadBorders(sceneGroup)
 	sceneGroup:insert(borderRight)
 end
 
+-------------------------------------------------------------------------------------------
+-- FUNCTION TO GET PLAYER IN USE
+-- TODO add real functionality
+-------------------------------------------------------------------------------------------
+function getPlayerInUse()
+	return pacman
+end
+
+-------------------------------------------------------------------------------------------
+-- EVENTS
+-------------------------------------------------------------------------------------------
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+
+
 
 return scene
