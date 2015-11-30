@@ -26,15 +26,19 @@ function scene:create(event)
 	loadPacman(sceneGroup)
 	
 	startControllers(getPlayerInUse())
+	
+	-- Runtime:addEventListener("collision", onCollision)
+
 	-- startControllers(getCharacter())
 	-- charactersAnimation()
 end
 
 function scene:show(event)
 	local phase = event.phase
-
 	if (phase == "did") then
+		print("did bef col")
 		Runtime:addEventListener("collision", onCollision)
+		print("did")
 	end
 end
 
@@ -64,14 +68,17 @@ function loadPacman(sceneGroup)
 		sheetContentHeight = h,
 	}
 
+	local pacmanCollisionFilter = { categoryBits=2, maskBits=3 }
+
 	pacmanSheet = graphics.newImageSheet("imgs/pacman-both.png", opt)
 	pacman = display.newSprite(pacmanSheet, { name="pacman", start=1, count=2, time=450 } )
 	
 	pacman.anchorX = 0.5
 	pacman.anchorY = 1
 	pacman.x = display.contentCenterX
-	pacman.y = display.contentHeight - 254
+	pacman.y = display.contentHeight - 295
 	pacman:play()
+	physics.addBody(pacman, "dynamic", {friction=0, filter=pacmanCollisionFilter})
 	sceneGroup:insert(pacman)
 
 end
@@ -134,16 +141,20 @@ function loadGhosts(sceneGroup)
 end
 
 function loadMap(sceneGroup)
+	local mapCollisionFilter = { categoryBits=1, maskBits=6 }
+
 	map = display.newImageRect("imgs/div-map.png", 255, 318)
 	map.anchorX = 0.5
 	map.anchorY = 1
 	map.x = display.contentCenterX
 	map.y = display.contentHeight - 134
-	physics.addBody(map, "static", {density=1, bounce=0.1, friction=.2})
+	physics.addBody(map, "static", {bounce=0.8, filter=mapCollisionFilter})
 	sceneGroup:insert(map)
 end
 
 function loadBorders(sceneGroup)
+	local borderCollisionFilter = { categoryBits=1, maskBits=6 }
+
 	background = display.newImageRect("imgs/black-texture.png", 320, 480)
 	background.anchorX = 0.5
 	background.anchorY = 1
@@ -156,7 +167,7 @@ function loadBorders(sceneGroup)
 	borderUp.anchorY = 1
 	borderUp.x = display.contentCenterX + 23
 	borderUp.y = display.contentHeight - 239
-	physics.addBody(borderUp, "static", {density=.1, bounce=0.1, friction=.2})
+	physics.addBody(borderUp, "static", {bounce=0.8, filter=borderCollisionFilter})
 	sceneGroup:insert(borderUp)
 
 	borderDown = display.newImageRect("imgs/div-border-down.png", 372, 250)
@@ -164,7 +175,7 @@ function loadBorders(sceneGroup)
 	borderDown.anchorY = 1
 	borderDown.x = display.contentCenterX - 23
 	borderDown.y = display.contentHeight - 95
-	physics.addBody(borderDown, "static", {density=.1, bounce=0.1, friction=.2})
+	physics.addBody(borderDown, "static", {bounce=0.8, filter=borderCollisionFilter})
 	sceneGroup:insert(borderDown)
 
 	borderLeft = display.newImageRect("imgs/div-border-left.png", 372, 431)
@@ -172,7 +183,7 @@ function loadBorders(sceneGroup)
 	borderLeft.anchorY = 1
 	borderLeft.x = display.contentCenterX + 13
 	borderLeft.y = display.contentHeight - 104
-	physics.addBody(borderLeft, "static", {density=.1, bounce=0.1, friction=.2})
+	physics.addBody(borderLeft, "static", {bounce=0.8, filter=borderCollisionFilter})
 	sceneGroup:insert(borderLeft)
 
 	borderRight = display.newImageRect("imgs/div-border-right.png", 372, 431)
@@ -180,7 +191,7 @@ function loadBorders(sceneGroup)
 	borderRight.anchorY = 1
 	borderRight.x = display.contentCenterX - 13
 	borderRight.y = display.contentHeight - 49
-	physics.addBody(borderRight, "static", {density=.1, bounce=0.1, friction=.2})
+	physics.addBody(borderRight, "static", {bounce=0.8, filter=borderCollisionFilter})
 	sceneGroup:insert(borderRight)
 end
 
@@ -188,11 +199,12 @@ end
 -- on collision of pacman
 -------------------------------------------------------------------------------------------
 function onCollision(event)
-	ghostYellow.x = ghostYellow.x + 2
-	-- if ( event.phase == "began" ) then
-	-- 	composer.gotoScene( "restart" )
-		
-	-- end
+	print("collision")
+	ghostYellow.y = ghostYellow.y + 1
+	if ( event.phase == "began" ) then
+		print("began collision")
+		ghostYellow.x = ghostYellow.x + 1
+	end
 end
 
 -------------------------------------------------------------------------------------------
