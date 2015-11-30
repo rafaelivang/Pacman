@@ -31,7 +31,11 @@ function scene:create(event)
 end
 
 function scene:show(event)
+	local phase = event.phase
 
+	if (phase == "did") then
+		Runtime:addEventListener("collision", onCollision)
+	end
 end
 
 function scene:hide(event)
@@ -178,6 +182,17 @@ function loadBorders(sceneGroup)
 	borderRight.y = display.contentHeight - 49
 	physics.addBody(borderRight, "static", {density=.1, bounce=0.1, friction=.2})
 	sceneGroup:insert(borderRight)
+end
+
+-------------------------------------------------------------------------------------------
+-- on collision of pacman
+-------------------------------------------------------------------------------------------
+function onCollision(event)
+	ghostYellow.x = ghostYellow.x + 2
+	-- if ( event.phase == "began" ) then
+	-- 	composer.gotoScene( "restart" )
+		
+	-- end
 end
 
 -------------------------------------------------------------------------------------------
