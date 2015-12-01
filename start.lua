@@ -9,9 +9,11 @@ local composer = require("composer")
 local scene = composer.newScene()
 
 local physics = require("physics")
+
 -- local widget = require("widget")
 local controller = require("controller")
 physics.start()
+physics.setGravity(0,0)
 
 function scene:create(event)
 	local sceneGroup = self.view
@@ -19,7 +21,7 @@ function scene:create(event)
 	-- -- Add objects to sceneGrp to be shown in screen.
 	loadBorders(sceneGroup)
 
-	loadMap(sceneGroup)
+	-- loadMap(sceneGroup)
 
 	loadGhosts(sceneGroup)
 
@@ -76,7 +78,9 @@ function loadPacman(sceneGroup)
 	pacman.anchorX = 0.5
 	pacman.anchorY = 1
 	pacman.x = display.contentCenterX
-	pacman.y = display.contentHeight - 295
+	pacman.y = display.contentHeight - 350
+	print("pacman x = " .. pacman.x)
+	print("pacman y = " .. pacman.y)
 	pacman:play()
 	physics.addBody(pacman, "dynamic", {friction=0, filter=pacmanCollisionFilter})
 	sceneGroup:insert(pacman)
@@ -148,26 +152,26 @@ function loadMap(sceneGroup)
 	map.anchorY = 1
 	map.x = display.contentCenterX
 	map.y = display.contentHeight - 134
-	physics.addBody(map, "static", {bounce=0.8, filter=mapCollisionFilter})
+	-- physics.addBody(map, "static", {bounce=0.8, filter=mapCollisionFilter})
 	sceneGroup:insert(map)
 end
 
 function loadBorders(sceneGroup)
 	local borderCollisionFilter = { categoryBits=1, maskBits=6 }
 
-	background = display.newImageRect("imgs/black-texture.png", 320, 480)
-	background.anchorX = 0.5
-	background.anchorY = 1
-	background.x = display.contentCenterX
-	background.y = display.contentHeight
-	sceneGroup:insert(background)
+	-- background = display.newImageRect("imgs/black-texture.png", 320, 480)
+	-- background.anchorX = 0.5
+	-- background.anchorY = 1
+	-- background.x = display.contentCenterX
+	-- background.y = display.contentHeight
+	-- sceneGroup:insert(background)
 
 	borderUp = display.newImageRect("imgs/div-border-up.png", 372, 250)
 	borderUp.anchorX = 0.5
 	borderUp.anchorY = 1
 	borderUp.x = display.contentCenterX + 23
 	borderUp.y = display.contentHeight - 239
-	physics.addBody(borderUp, "static", {bounce=0.8, filter=borderCollisionFilter})
+	physics.addBody(borderUp, "static", { friction=0.5, bounce=0.3 })
 	sceneGroup:insert(borderUp)
 
 	borderDown = display.newImageRect("imgs/div-border-down.png", 372, 250)
@@ -175,24 +179,24 @@ function loadBorders(sceneGroup)
 	borderDown.anchorY = 1
 	borderDown.x = display.contentCenterX - 23
 	borderDown.y = display.contentHeight - 95
-	physics.addBody(borderDown, "static", {bounce=0.8, filter=borderCollisionFilter})
+	physics.addBody(borderDown, "static", { friction=0.5, bounce=0.3 })
 	sceneGroup:insert(borderDown)
 
-	borderLeft = display.newImageRect("imgs/div-border-left.png", 372, 431)
-	borderLeft.anchorX = 0.5
-	borderLeft.anchorY = 1
-	borderLeft.x = display.contentCenterX + 13
-	borderLeft.y = display.contentHeight - 104
-	physics.addBody(borderLeft, "static", {bounce=0.8, filter=borderCollisionFilter})
-	sceneGroup:insert(borderLeft)
+	-- borderLeft = display.newImageRect("imgs/div-border-left.png", 372, 431)
+	-- borderLeft.anchorX = 0.5
+	-- borderLeft.anchorY = 1
+	-- borderLeft.x = display.contentCenterX + 13
+	-- borderLeft.y = display.contentHeight - 104
+	-- physics.addBody(borderLeft, "static", { friction=0.5, bounce=0.3 })
+	-- sceneGroup:insert(borderLeft)
 
-	borderRight = display.newImageRect("imgs/div-border-right.png", 372, 431)
-	borderRight.anchorX = 0.5
-	borderRight.anchorY = 1
-	borderRight.x = display.contentCenterX - 13
-	borderRight.y = display.contentHeight - 49
-	physics.addBody(borderRight, "static", {bounce=0.8, filter=borderCollisionFilter})
-	sceneGroup:insert(borderRight)
+	-- borderRight = display.newImageRect("imgs/div-border-right.png", 372, 431)
+	-- borderRight.anchorX = 0.5
+	-- borderRight.anchorY = 1
+	-- borderRight.x = display.contentCenterX - 13
+	-- borderRight.y = display.contentHeight - 49
+	-- physics.addBody(borderRight, "static", { friction=0.5, bounce=0.3 })
+	-- sceneGroup:insert(borderRight)
 end
 
 -------------------------------------------------------------------------------------------

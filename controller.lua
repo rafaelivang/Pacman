@@ -28,6 +28,8 @@ end
 
 -- Function to handle button events
 local function handleButtonDownEvent( event )
+	print("pacman x = " .. chPlayer.x)
+	print("pacman y = " .. chPlayer.y)
 	chPlayer.y = chPlayer.y+speed
 end
 
