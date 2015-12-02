@@ -21,7 +21,7 @@ function scene:create(event)
 	-- -- Add objects to sceneGrp to be shown in screen.
 	loadBorders(sceneGroup)
 
-	-- loadMap(sceneGroup)
+	loadMap(sceneGroup)
 
 	loadGhosts(sceneGroup)
 
@@ -152,7 +152,7 @@ function loadMap(sceneGroup)
 	map.anchorY = 1
 	map.x = display.contentCenterX
 	map.y = display.contentHeight - 134
-	-- physics.addBody(map, "static", {bounce=0.8, filter=mapCollisionFilter})
+	physics.addBody(map, "static", {bounce=0.8, friction=0.5})
 	sceneGroup:insert(map)
 end
 
@@ -166,37 +166,37 @@ function loadBorders(sceneGroup)
 	-- background.y = display.contentHeight
 	-- sceneGroup:insert(background)
 
-	borderUp = display.newImageRect("imgs/div-border-up.png", 372, 250)
+	borderUp = display.newImageRect("imgs/div-border-up.png", 323, 2)
 	borderUp.anchorX = 0.5
 	borderUp.anchorY = 1
-	borderUp.x = display.contentCenterX + 23
-	borderUp.y = display.contentHeight - 239
+	borderUp.x = display.contentCenterX
+	borderUp.y = display.contentHeight - 478
 	physics.addBody(borderUp, "static", { friction=0.5, bounce=0.3 })
 	sceneGroup:insert(borderUp)
 
-	borderDown = display.newImageRect("imgs/div-border-down.png", 372, 250)
+	borderDown = display.newImageRect("imgs/div-border-down.png", 323, 1)
 	borderDown.anchorX = 0.5
 	borderDown.anchorY = 1
-	borderDown.x = display.contentCenterX - 23
-	borderDown.y = display.contentHeight - 95
+	borderDown.x = display.contentCenterX
+	borderDown.y = display.contentHeight - 108
 	physics.addBody(borderDown, "static", { friction=0.5, bounce=0.3 })
 	sceneGroup:insert(borderDown)
 
-	-- borderLeft = display.newImageRect("imgs/div-border-left.png", 372, 431)
-	-- borderLeft.anchorX = 0.5
-	-- borderLeft.anchorY = 1
-	-- borderLeft.x = display.contentCenterX + 13
-	-- borderLeft.y = display.contentHeight - 104
-	-- physics.addBody(borderLeft, "static", { friction=0.5, bounce=0.3 })
-	-- sceneGroup:insert(borderLeft)
+	borderLeft = display.newImageRect("imgs/div-border-left.png", 1, 369)
+	borderLeft.anchorX = 0.5
+	borderLeft.anchorY = 1
+	borderLeft.x = display.contentCenterX - 159
+	borderLeft.y = display.contentHeight - 109
+	physics.addBody(borderLeft, "static", { friction=0.5, bounce=0.3 })
+	sceneGroup:insert(borderLeft)
 
-	-- borderRight = display.newImageRect("imgs/div-border-right.png", 372, 431)
-	-- borderRight.anchorX = 0.5
-	-- borderRight.anchorY = 1
-	-- borderRight.x = display.contentCenterX - 13
-	-- borderRight.y = display.contentHeight - 49
-	-- physics.addBody(borderRight, "static", { friction=0.5, bounce=0.3 })
-	-- sceneGroup:insert(borderRight)
+	borderRight = display.newImageRect("imgs/div-border-right.png", 1, 369)
+	borderRight.anchorX = 0.5
+	borderRight.anchorY = 1
+	borderRight.x = display.contentCenterX + 159
+	borderRight.y = display.contentHeight - 109
+	physics.addBody(borderRight, "static", { friction=0.5, bounce=0.3 })
+	sceneGroup:insert(borderRight)
 end
 
 -------------------------------------------------------------------------------------------
