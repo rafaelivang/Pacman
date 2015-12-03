@@ -26,6 +26,8 @@ function scene:create(event)
 	loadGhosts(sceneGroup)
 
 	loadPacman(sceneGroup)
+
+	loadPoints()
 	
 	startControllers(getPlayerInUse())
 	
@@ -143,21 +145,13 @@ function loadGhosts(sceneGroup)
 	sceneGroup:insert(ghostYellow)
 end
 
+function loadPoints(sceneGroup)
+
+end
+
 function loadMap(sceneGroup)
-	-- TODO
-	-- local mapCollisionFilter = { categoryBits=1, maskBits=6 }
-
-	-- map = display.newImageRect("imgs/div-map.png", 255, 318)
-	-- map.anchorX = 0.5
-	-- map.anchorY = 1
-	-- map.x = display.contentCenterX
-	-- map.y = display.contentHeight - 134
-	-- physics.addBody(map, "static", {bounce=0.8, friction=0.5})
-	-- sceneGroup:insert(map)
-
 	blockMap = {}
 
-	
 	local yPos = 410
 	local iPos = 0
 	for j=1,5 do
@@ -180,13 +174,6 @@ end
 
 function loadBorders(sceneGroup)
 	local borderCollisionFilter = { categoryBits=1, maskBits=6 }
-
-	-- background = display.newImageRect("imgs/black-texture.png", 320, 480)
-	-- background.anchorX = 0.5
-	-- background.anchorY = 1
-	-- background.x = display.contentCenterX
-	-- background.y = display.contentHeight
-	-- sceneGroup:insert(background)
 
 	borderUp = display.newImageRect("imgs/div-border-up.png", 323, 2)
 	borderUp.anchorX = 0.5
