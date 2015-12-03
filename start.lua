@@ -38,9 +38,7 @@ end
 function scene:show(event)
 	local phase = event.phase
 	if (phase == "did") then
-		print("did bef col")
 		Runtime:addEventListener("collision", onCollision)
-		print("did")
 	end
 end
 
@@ -78,9 +76,7 @@ function loadPacman(sceneGroup)
 	pacman.anchorX = 0.5
 	pacman.anchorY = 1
 	pacman.x = display.contentCenterX
-	pacman.y = display.contentHeight - 350
-	print("pacman x = " .. pacman.x)
-	print("pacman y = " .. pacman.y)
+	pacman.y = display.contentHeight - 255
 	pacman:play()
 	physics.addBody(pacman, "dynamic", {friction=0, filter=pacmanCollisionFilter})
 	sceneGroup:insert(pacman)
@@ -158,6 +154,28 @@ function loadMap(sceneGroup)
 	-- map.y = display.contentHeight - 134
 	-- physics.addBody(map, "static", {bounce=0.8, friction=0.5})
 	-- sceneGroup:insert(map)
+
+	blockMap = {}
+
+	
+	local yPos = 410
+	local iPos = 0
+	for j=1,5 do
+		local xPos = 100
+		for i=1,3 do
+			tmpBlock = display.newImageRect("imgs/div-block.png", 65, 37)
+			tmpBlock.anchorX = 0.5
+			tmpBlock.anchorY = 1
+			tmpBlock.x = display.contentCenterX - xPos
+			tmpBlock.y = display.contentHeight - yPos
+			physics.addBody(tmpBlock, "static", { friction=0.5, bounce=0.3 })
+			sceneGroup:insert(tmpBlock)
+			blockMap[iPos] = tmpBlock
+			iPos = iPos + 1
+			xPos = xPos - 100
+		end
+		yPos = yPos - 65
+	end
 end
 
 function loadBorders(sceneGroup)
@@ -211,7 +229,6 @@ function onCollision(event)
 	ghostYellow.y = ghostYellow.y + 1
 	if ( event.phase == "began" ) then
 		print("began collision")
-		ghostYellow.x = ghostYellow.x + 1
 	end
 end
 
