@@ -146,7 +146,7 @@ function loadGhosts(sceneGroup)
 end
 
 function loadPoints(sceneGroup)
-
+	points = {}
 end
 
 function loadMap(sceneGroup)
