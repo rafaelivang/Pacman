@@ -88,6 +88,9 @@ function loadPacman(sceneGroup)
 end
 
 function loadGhosts(sceneGroup)
+	fw = 18
+	fh = 22
+
 	opt =
 	{
 		-- Required params
@@ -98,11 +101,11 @@ function loadGhosts(sceneGroup)
 		-- sheetContentWidth = 160,
 		-- sheetContentHeight = 100,
 
-		width = 18,
-		height = 79,
+		width = fw,
+		height = fh,
 		numFrames = 2,
-		sheetContentWidth = 80,
-		sheetContentHeight = 80,
+		sheetContentWidth = fw*2,
+		sheetContentHeight = fh,
 	}
 
 	ghostBlueSheet = graphics.newImageSheet("imgs/ghost-blue-both.png", opt)
@@ -111,8 +114,8 @@ function loadGhosts(sceneGroup)
 	-- ghostBlue = display.newImageRect("imgs/ghost-blue-both.png", 100, 100)
 	ghostBlue.anchorX = 0.5
 	ghostBlue.anchorY = 1
-	ghostBlue.x = display.contentCenterX - 142
-	ghostBlue.y = display.contentHeight - 395
+	ghostBlue.x = display.contentCenterX - 145
+	ghostBlue.y = display.contentHeight - 452
 	ghostBlue:play()
 	sceneGroup:insert(ghostBlue)
 
@@ -120,8 +123,8 @@ function loadGhosts(sceneGroup)
 	ghostPurple = display.newSprite( ghostPurpleSheet, { name="ghostPurple", start=1, count=2, time=450 } )
 	ghostPurple.anchorX = 0.5
 	ghostPurple.anchorY = 1
-	ghostPurple.x = display.contentCenterX + 142
-	ghostPurple.y = display.contentHeight - 395
+	ghostPurple.x = display.contentCenterX + 145
+	ghostPurple.y = display.contentHeight - 452
 	ghostPurple:play()
 	sceneGroup:insert(ghostPurple)
 
@@ -129,8 +132,8 @@ function loadGhosts(sceneGroup)
 	ghostRed = display.newSprite( ghostRedSheet, { name="ghostRed", start=1, count=2, time=450 } )
 	ghostRed.anchorX = 0.5
 	ghostRed.anchorY = 1
-	ghostRed.x = display.contentCenterX - 142
-	ghostRed.y = display.contentHeight - 52
+	ghostRed.x = display.contentCenterX - 145
+	ghostRed.y = display.contentHeight - 115
 	ghostRed:play()
 	sceneGroup:insert(ghostRed)
 
@@ -139,21 +142,22 @@ function loadGhosts(sceneGroup)
 	ghostYellow.anchorX = 0.5
 	ghostYellow.anchorY = 1
 	ghostYellow.x = display.contentCenterX + 142
-	ghostYellow.y = display.contentHeight - 52
+	ghostYellow.y = display.contentHeight - 115
 	ghostYellow:play()
 	sceneGroup:insert(ghostYellow)
 end
 
 function loadMap(sceneGroup)
-	local mapCollisionFilter = { categoryBits=1, maskBits=6 }
+	-- TODO
+	-- local mapCollisionFilter = { categoryBits=1, maskBits=6 }
 
-	map = display.newImageRect("imgs/div-map.png", 255, 318)
-	map.anchorX = 0.5
-	map.anchorY = 1
-	map.x = display.contentCenterX
-	map.y = display.contentHeight - 134
-	physics.addBody(map, "static", {bounce=0.8, friction=0.5})
-	sceneGroup:insert(map)
+	-- map = display.newImageRect("imgs/div-map.png", 255, 318)
+	-- map.anchorX = 0.5
+	-- map.anchorY = 1
+	-- map.x = display.contentCenterX
+	-- map.y = display.contentHeight - 134
+	-- physics.addBody(map, "static", {bounce=0.8, friction=0.5})
+	-- sceneGroup:insert(map)
 end
 
 function loadBorders(sceneGroup)
