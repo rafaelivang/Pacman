@@ -14,7 +14,7 @@
 
 local widget = require( "widget" )
 local screenBottom = display.viewableContentHeight + display.screenOriginY
-local speed = 3
+local speed = 5
 
 -------------------------------------------------------------------------------------------
 -- BUTTONS
@@ -23,22 +23,50 @@ local buttonRadius = 20
 
 -- Function to handle button events
 local function handleButtonUpEvent(event)
-	chPlayer.y = chPlayer.y-speed
+	local data, err
+ 
+   	data, err = serverSocket:send("U"..playerId.."\n")
 end
 
 -- Function to handle button events
 local function handleButtonDownEvent( event )
-	chPlayer.y = chPlayer.y+speed
+	local data, err
+ 
+   	data, err = serverSocket:send("D"..playerId.."\n")
 end
 
 -- Function to handle button events
 local function handleButtonRightEvent( event )
-	chPlayer.x = chPlayer.x+speed
+	local data, err
+ 
+   	data, err = serverSocket:send("R"..playerId.."\n")
 end
 
 -- Function to handle button events
 local function handleButtonLeftEvent( event )
-	chPlayer.x = chPlayer.x-speed
+	local data, err
+ 
+   	data, err = serverSocket:send("L"..playerId.."\n")
+end
+
+-- Function to handle button events
+function movePlayerUp( player )
+	player.y = player.y-speed
+end
+
+-- Function to handle button events
+function movePlayerDown( player )
+	player.y = player.y+speed
+end
+
+-- Function to handle button events
+function movePlayerRight( player )
+	player.x = player.x+speed
+end
+
+-- Function to handle button events
+function movePlayerLeft( player )
+	player.x = player.x-speed
 end
 
 -- Create the widget
@@ -130,7 +158,9 @@ local function setupButtons()
 	buttonLeft:setLabel( "L" )
 end
 
-function startControllers(ch)
+function startControllers(ch, pid, soc)
 	chPlayer = ch
+	playerId = pid
+	serverSocket = soc
 	setupButtons()
 end
