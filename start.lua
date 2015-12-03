@@ -225,8 +225,6 @@ end
 -- on collision of pacman
 -------------------------------------------------------------------------------------------
 function onCollision(event)
-	print("collision")
-	ghostYellow.y = ghostYellow.y + 1
 	if ( event.phase == "began" ) then
 		print("began collision")
 	end
